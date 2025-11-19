@@ -1,1 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Renderwave Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+    /* Color Variables */
+    :root {
+        --bg-color: #fff;
+        --text-color: #000;
+        --secondary-bg: #f0f0f0;
+        --accent-color: #000;
+    }
+    body.light-mode {
+        --bg-color: #000;
+        --text-color: #fff;
+        --secondary-bg: #111;
+        --accent-color: #fff;
+    }
 
+    /* Reset & Base Styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        transition: background 0.3s, color 0.3s;
+    }
+    body {
+          font-family: 'Poppins', sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+    }
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+    img {
+        max-width: 100%;
+        display: block;
+    }
+
+    /* Header */
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 50px;
+        background: rgba(0,0,0,0.95);
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+        background-color: var(--bg-color);
+    }
+    header .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+    nav ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+    }
+    nav ul li a {
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+    nav ul li a:hover {
+        color: #aaa;
+    }
+
+    /* Toggle Button */
+    .theme-icon {
+        font-size: 1.4rem;
+        cursor: pointer;
+        margin-left: 20px;
+        user-select: none;
+        transition: transform 0.3s ease;
+    }
+    .theme-icon:hover {
+        transform: scale(1.2);
+    }
+    /* Hero */
+    .hero {
+        height: 100vh;
+        background: url('https://via.placeholder.com/1600x900?text=Film+Studio+Background') center/cover no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0 20px;
+    }
+    .hero h1 {
+        font-size: 3.5rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        animation: fadeInUp 1s ease forwards;
+    }
+
+    /* Sections */
+    section {
+        padding: 80px 50px;
+        max-width: 1200px;
+        margin: auto;
+    }
+    h2 {
+        text-align: center;
+        margin-bottom: 40px;
+        text-transform: uppercase;
+    }
+    p {
+        font-size: 1.1rem;
+    }
+
+    /* About */
+    .about {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+    .about img {
+        border-radius: 8px;
+    }
+
+    /* Showreel */
+    .showreel iframe {
+        width: 100%;
+        height: 500px;
+        border: none;
+    }
+
+    /* Portfolio */
+    .portfolio-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+    .portfolio-item {
+        position: relative;
+        overflow: hidden;
+    }
+    .portfolio-item img {
+        transition: transform 0.4s ease;
+    }
+    .portfolio-item:hover img {
+        transform: scale(1.1);
+    }
+    .portfolio-item::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.4);
+    }
+
+    /* Team */
+    .team {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        text-align: center;
+    }
+    .team img {
+        border-radius: 2%;
+        margin-bottom: 10px;
+    }
+    .team h3 {
+        margin-bottom: 5px;
+    }
+    .team p {
+        font-size: 0.9rem;
+        color: #bbb;
+    }
+    body.light-mode .team p {
+        color: #555;
+    }
+
+    /* Services */
+    .services {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        text-align: center;
+    }
+    .service-card {
+        background: var(--secondary-bg);
+        padding: 20px;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+    }
+    .service-card:hover {
+        background: #222;
+    }
+    body.light-mode .service-card:hover {
+        background: #ddd;
+    }
+
+    /* Testimonials */
+    .testimonials {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+    .testimonial {
+        background: var(--secondary-bg);
+        padding: 20px;
+        border-radius: 8px;
+        font-style: italic;
+    }
+    .testimonial span {
+        display: block;
+        margin-top: 10px;
+        font-weight: bold;
+        font-style: normal;
+    }
+    #backToTop {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: var(--accent-color);
+        color: var(--bg-color);
+        border: none;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        z-index: 999;
+    }
+    #backToTop.show {
+        display: flex;
+        opacity: 1;
+        transform: scale(1);
+    }
+    #backToTop.hide {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    /* Contact */
+    form {
+        max-width: 600px;
+        margin: auto;
+    }
+    input, textarea, button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: none;
+        background: var(--secondary-bg);
+        color: var(--text-color);
+        font-size: 1rem;
+    }
+    button {
+        background: var(--accent-color);
+        color: var(--bg-color);
+        cursor: pointer;
+        font-weight: bold;
+    }
+    .partners {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.partners h2 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+.partner-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.partner-logos .logo {
+    flex: 1 1 150px;
+    max-width: 180px;
+    padding: 15px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.partner-logos .logo img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: grayscale(100%); /* modern B/W look */
+    transition: filter 0.3s ease;
+}
+
+.partner-logos .logo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.partner-logos .logo:hover img {
+    filter: grayscale(0%); /* colored on hover */
+}
+
+
+    /* Footer */
+    footer {
+        background: var(--secondary-bg);
+        text-align: center;
+        padding: 30px;
+        font-size: 0.9rem;
+        color: #777;
+    }
+    .social-links a {
+        margin: 0 10px;
+        color: var(--text-color);
+        font-size: 1.2rem;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .about {
+            grid-template-columns: 1fr;
+        }
+    }
+     .menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 5px;
+        margin-left: 15px;
+    }
+    .menu-toggle div {
+        width: 25px;
+        height: 3px;
+        background: var(--text-color);
+        transition: transform 0.3s ease;
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 768px) {
+        nav ul {
+            position: absolute;
+            top: 70px;
+            right: 0;
+            background: var(--bg-color);
+            flex-direction: column;
+            width: 200px;
+            transform: scaleY(0);
+            transform-origin: top;
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            padding: 10px 0;
+        }
+        nav ul.show {
+            transform: scaleY(1);
+            opacity: 1;
+        }
+        .menu-toggle {
+            display: flex;
+        }
+    }
+    .studio-btn {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    padding: 0.75em 1.5em;
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.studio-btn:hover {
+    background-color: #8e8c87; /* slightly lighter for hover */
+    transform: translateY(-3px);
+}
+
+.studio-btn:active {
+    transform: translateY(-1px);
+}
+
+
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">RENDERWAVE</div>
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#showreel">Showreel</a></li>
+            <li><a href="#portfolio">Our Work</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#contact">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="menu-toggle" id="menuToggle">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </nav>
+    <li class="theme-icon" id="themeToggle">🌙</li>
+</header>
+<button id="backToTop" title="Go to top">↑</button>
+<section class="hero relative h-screen w-full bg-cover bg-center flex items-center justify-center" 
+         style="background-image: url('https://source.unsplash.com/1600x900/?technology,creative');">
+    
+    <!-- Overlay for readability -->
+    <div class="absolute inset-0 bg-black/60"></div>
+
+    <!-- Text content -->
+    <h1 class="relative z-10 text-white text-4xl md:text-6xl font-bold tracking-tight drop-shadow-lg">
+        Culture. Creativity. Code.
+    </h1>
+</section>
+
+<section id="about">
+    <h2>About Us</h2>
+    <div class="about">
+        <img src="About 1.png" alt="About Image">
+        <p>
+            Renderwave Studio fuses African cultural richness with cutting-edge digital craft. We design immersive games, cinematic experiences, interactive installations, and brand narratives that feel unmistakably local and perform flawlessly on the world stage. Renderwave Studio was founded where brilliant minds and vibrant cultures meet. Headquartered in Africa and inspired by its histories, languages and aesthetics, we are a multidisciplinary creative studio of storytellers, technologists, designers and artists. Our work transforms cultural insight into elegant digital products — from real-time interactive worlds and AR/VR experiences to cinematic trailers, etc.    </div>
+</section>
+
+<section id="showreel">
+    <h2>Showreel</h2>
+    <div class="showreel">
+        <iframe src="https://www.youtube.com/embed/ScMzIvxBSi4" allowfullscreen></iframe>
+    </div>
+</section>
+
+<section id="portfolio">
+    <h2>Our Work</h2>
+    <div class="portfolio-grid">
+        <div class="portfolio-item"><img src="https://via.placeholder.com/400x250?text=Project+1" alt="Project 1"></div>
+        <div class="portfolio-item"><img src="https://via.placeholder.com/400x250?text=Project+2" alt="Project 2"></div>
+        <div class="portfolio-item"><img src="https://via.placeholder.com/400x250?text=Project+3" alt="Project 3"></div>
+        <div class="portfolio-item"><img src="https://via.placeholder.com/400x250?text=Project+4" alt="Project 4"></div>
+    </div>
+</section>
+
+<section id="team">
+    <h2>Meet the Team</h2>
+    <div class="team">
+        <div>
+            <img src="1.png" alt="Team Member 1">
+            <h3>Peter Adebowale</h3>
+            <p>Creative Director & Lead Animator</p>
+        </div>
+        <div>
+            <img src="https://via.placeholder.com/200?text=Person+2" alt="Team Member 2">
+            <h3>Jane Doe</h3>
+            <p>Cinematographer</p>
+        </div>
+        <div>
+            <img src="https://via.placeholder.com/200?text=Person+3" alt="Team Member 3">
+            <h3>Michael Lee</h3>
+            <p>Editor</p>
+        </div>
+        <div>
+            <img src="https://via.placeholder.com/200?text=Person+4" alt="Team Member 4">
+            <h3>Sarah Kim</h3>
+            <p>Producer</p>
+        </div>
+    </div>
+</section>
+
+<section id="services">
+    <h2>Our Services</h2>
+    <div class="services">
+        <div class="service-card">
+            <h3>Animation Production</h3>
+            <p>From pre-production to post-production, we deliver cinematic experiences with precision and creativity.</p>
+        </div>
+        <div class="service-card">
+            <h3>Commercials</h3>
+            <p>We craft commercials that don’t just sell — they connect. We blend striking visuals and compelling storytelling with cinematic polish.</p>
+        </div>
+        <div class="service-card">
+            <h3>Game Development</h3>
+            <p>We don’t just make games — we create immersive universes where players can  connect, and experience stories like never before.</p>
+        </div>
+        <div class="service-card">
+            <h3>3D Art & Visualization</h3>
+            <p>From concept to hyper-real render, we transform ideas into stunning digital worlds that inspire emotion and leave lasting impressions.</p>
+        </div>
+        <div class="service-card">
+            <h3>Comic Creation</h3>
+            <p>Our comics fuse bold visuals with powerful storytelling, bringing characters to life in ways that captivate, entertain, and resonate with readers.</p>
+        </div>
+        <div class="service-card">
+            <h3>Creative Partnerships</h3>
+            <p>Collaboration is where innovation sparks — we team up with creators, brands, and dreamers to build projects that break boundaries.</p>
+        </div>
+        <div class="service-card">
+            <h3>Video Editing</h3>
+            <p>Every frame tells a story. We shape raw footage into dynamic, cinematic experiences that engage audiences and elevate the message.</p>
+        </div>
+        <div class="service-card">
+            <h3>Sfx Editing</h3>
+            <p>Sound is emotion. We design audio landscapes that don’t just support visuals — they heighten tension, amplify impact, and transform the experience.</p>
+        </div>
+    </div>
+    <br>
+    Check out our brochure for more information on our services.
+    <br>
+    <br>
+    <button class="studio-btn" onclick="window.location.href='bit.ly/40c6Uar'">Brochure</button>
+</section>
+
+<section id="partners" class="partners">
+    <h2>Our Partners</h2>
+    <div class="partner-logos">
+        <div class="logo"><img src="finesser 1.png" alt="Partner 1"></div>
+        <div class="logo"><img src="partner2.png" alt="Partner 2"></div>
+        <div class="logo"><img src="partner3.png" alt="Partner 3"></div>
+        <div class="logo"><img src="partner4.png" alt="Partner 4"></div>
+    </div>
+</section>
+
+
+
+<section id="testimonials">
+    <h2>Testimonials</h2>
+    <div class="testimonials">
+        <div class="testimonial">
+            "An outstanding creative team! They took our vision and turned it into a masterpiece."
+            <span>- Alex Johnson, Producer</span>
+        </div>
+        <div class="testimonial">
+            "Their attention to detail and cinematic approach is unmatched in the industry."
+            <span>- Maria Garcia, Director</span>
+        </div>
+        <div class="testimonial">
+            "Working with them was a seamless and inspiring experience."
+            <span>- David Chen, Actor</span>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <h2>Contact Us</h2>
+    <form>
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea placeholder="Your Message" required></textarea>
+        <button type="submit">Send</button>
+    </form>
+</section>
+
+<footer>
+    &copy; 2025 Renderwave Studio. All rights reserved.
+    <div class="social-links">
+    <a href="#" aria-label="Linkedin"><i class="fab fa-linkedin"></i></a>
+    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+</div>
+
+</footer>
+
+<script>
+    // Smooth scroll
+    document.querySelectorAll('nav a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("nav-links");
+    
+
+    menuToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("show");
+    });
+
+    // Hide/Show navbar on scroll
+    let lastScrollY = window.scrollY;
+    const navbar = document.getElementById("navbar");
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > lastScrollY) {
+            navbar.style.transform = "translateY(-100%)"; // Hide
+        } else {
+            navbar.style.transform = "translateY(0)"; // Show
+        }
+        lastScrollY = window.scrollY;
+    });
+const backToTop = document.getElementById("backToTop");
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) {
+            backToTop.classList.add("show");
+            backToTop.classList.remove("hide");
+        } else {
+            backToTop.classList.add("hide");
+            setTimeout(() => backToTop.classList.remove("show"), 300);
+        }
+    });
+
+    backToTop.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+    // Theme toggle with icon switch
+    const themeToggleIcon = document.getElementById('themeToggle');
+    themeToggleIcon.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        themeToggleIcon.textContent = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
+    });
+</script>
+</body>
+</html>
