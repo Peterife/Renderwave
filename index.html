@@ -542,28 +542,6 @@ document.querySelectorAll('nav a').forEach(anchor => {
         document.querySelector(this.getAttribute('href')).scrollIntoView({behavior:'smooth'});
     });
 });
-    /* Hamburger */
-const menuToggle = document.getElementById("menuToggle");
-const navLinks = document.getElementById("nav-links");
-
-menuToggle.addEventListener("click", () => {
-    menuToggle.classList.toggle("active");
-    navLinks.classList.toggle("show");
-});
-
-document.querySelectorAll("#nav-links a").forEach(link => {
-    link.addEventListener("click", () => {
-        menuToggle.classList.remove("active");
-        navLinks.classList.remove("show");
-    });
-});
-
-/* Theme */
-const themeToggle = document.getElementById("themeToggle");
-themeToggle.addEventListener("click", () => {
-    document.body.classList.toggle("light-mode");
-    themeToggle.textContent = document.body.classList.contains("light-mode") ? "☀️" : "🌙";
-});
 const menuToggle=document.getElementById("menuToggle");
 const navLinks=document.getElementById("nav-links");
 menuToggle.addEventListener("click",()=>{navLinks.classList.toggle("show");});
