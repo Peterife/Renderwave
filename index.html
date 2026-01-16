@@ -37,7 +37,7 @@ nav ul li a:hover {color:#aaa;}
 .menu-toggle {display:none;flex-direction:column;cursor:pointer;gap:5px;margin-left:15px;}
 .menu-toggle div {width:25px;height:3px;background:var(--text-color);transition:transform 0.3s;}
 .hero {height:100vh;background:center/cover no-repeat;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 20px;position:relative;}
-.hero h1 {font-size:3.5rem;font-weight:bold;text-transform:uppercase;color:black;z-index:10;;}
+.hero h1 {font-size:3.5rem;font-weight:bold;text-transform:uppercase;color:white;z-index:10;;}
 /* .hero::before {content:"";position:absolute;inset:0;background:rgba(0,0,0,0.60);} */
 section {padding:80px 50px;max-width:1200px;margin:auto;}
 h2 {text-align:center;margin-bottom:40px;text-transform:uppercase;}
@@ -299,7 +299,7 @@ window.addEventListener("scroll",()=>{
 backToTop.addEventListener("click",()=>{window.scrollTo({top:0,behavior:"smooth"});});
 
 const themeToggleIcon=document.getElementById('themeToggle');
-themeToggleIcon.addEventListener('click',()=>{document.body.classList.toggle('light-mode');themeToggleIcon.textContent=document.body.classList.contains('light-mode')?'☀️':'🌙';});
+themeToggleIcon.addEventListener('click',()=>{document.body.classList.toggle('light-mode');themeToggleIcon.textContent=document.body.classList.contains('light-mode')?'☀️':'🌕';});
 </script>
 
 </body>
